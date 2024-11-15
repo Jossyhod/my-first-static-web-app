@@ -11,7 +11,37 @@
 <body>
   <main>
     <h1>Vanilla JavaScript App</h1>
+    <h1>Welcome to the Node.js Frontend with Azure API Management</h1>
+    <button id="fetchData">Fetch Data</button>
+    <div id="apiResponse"></div>
+
+    <script src="app.js"></script>
   </main>
 </body>
 
 </html>
+<script>
+  import axios from 'axios';
+
+// API endpoint URL from your APIM instance
+const apiUrl = 'https://<your-apim-name>.azure-api.net/<api-name>/<operation>';
+
+async function callApi() {
+  try {
+    const response = await axios.get(apiUrl, {
+      headers: {
+        'Authorization': `Bearer <your-access-token>`, // If using OAuth2
+        // Or if using an API key:
+        // 'Ocp-Apim-Subscription-Key': '<your-subscription-key>',
+      }
+    });
+
+    console.log(response.data); // Process the data from the API
+  } catch (error) {
+    console.error('Error calling API:', error);
+  }
+}
+
+callApi();
+
+</script>
